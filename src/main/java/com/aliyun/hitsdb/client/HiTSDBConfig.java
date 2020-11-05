@@ -221,7 +221,7 @@ public class HiTSDBConfig extends AbstractConfig {
             return this;
         }
 
-        Builder basicAuth(String instanceId, String tsdbUser, String basicPwd) {
+       public Builder basicAuth(String instanceId, String tsdbUser, String basicPwd) {
             this.authType = TSDBConfig.BASICTYPE;
             this.instanceId = instanceId;
             this.tsdbUser = tsdbUser;

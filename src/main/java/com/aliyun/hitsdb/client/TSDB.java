@@ -62,6 +62,22 @@ public interface TSDB extends Closeable {
      */
     Result putSync(Collection<Point> points);
 
+
+    /**
+     * Sets set header params map.
+     *
+     * @param headerParamsMap the header params map
+     */
+    void setHeaderParamsMap(Map<String, String> headerParamsMap);
+
+
+    /**
+     * Gets get header params map.
+     *
+     * @return the get header params map
+     */
+    Map<String, String> getHeaderParamsMap();
+
     /**
      * Synchronous put method
      *

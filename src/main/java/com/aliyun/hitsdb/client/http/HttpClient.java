@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
@@ -47,6 +48,8 @@ public class HttpClient {
 
     private String host;
     private int port;
+
+    private Map<String, String> headerParamsMap;
 
     public String getHost() {
         return host;
@@ -163,6 +166,14 @@ public class HttpClient {
     public HttpResponse delete(String apiPath, String json) throws HttpClientException {
         final HttpDeleteWithEntity request = new HttpDeleteWithEntity(getUrl(apiPath));
         return execute(request, json);
+    }
+
+    public void setHeaderParamsMap(Map<String, String> headerParamsMap) {
+        this.headerParamsMap = headerParamsMap;
+    }
+
+    public Map<String, String> getHeaderParamsMap() {
+        return headerParamsMap;
     }
 
     public void delete(String apiPath, String json, FutureCallback<HttpResponse> httpCallback) {
@@ -412,8 +423,18 @@ public class HttpClient {
         String httpFullAPI = getUrl(apiPath);
         URI uri = createURI(httpFullAPI, params);
         final HttpPost request = new HttpPost(uri);
+        if (this.headerParamsMap != null && !headerParamsMap.isEmpty()) {
+            Iterator paramItr = headerParamsMap.entrySet().iterator();
+
+            while(paramItr.hasNext()) {
+                Map.Entry<String, String> entry = (Map.Entry)paramItr.next();
+                request.setHeader(entry.getKey(), entry.getValue());
+            }
+        }
+
         return execute(request, json);
     }
+
 
     private URI createURI(String httpFullAPI, Map<String, String> params) {
         URIBuilder builder;

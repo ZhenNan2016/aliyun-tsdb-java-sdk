@@ -113,6 +113,16 @@ public class TSDBClient implements TSDB {
     }
 
     @Override
+    public void setHeaderParamsMap(Map<String, String> headerParamsMap) {
+        httpclient.setHeaderParamsMap(headerParamsMap);
+    }
+
+    @Override
+    public Map<String, String> getHeaderParamsMap() {
+        return httpclient.getHeaderParamsMap();
+    }
+
+    @Override
     public void close() throws IOException {
         // 优雅关闭
         this.close(false);

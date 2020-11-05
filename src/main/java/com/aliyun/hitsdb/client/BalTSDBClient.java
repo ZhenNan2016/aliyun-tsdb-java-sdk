@@ -67,6 +67,15 @@ public class BalTSDBClient implements TSDB {
         this.init(config);
     }
 
+    @Override
+    public void setHeaderParamsMap(Map<String, String> headerParamsMap) {
+        return;
+    }
+
+    @Override
+    public Map<String, String> getHeaderParamsMap() {
+        return null;
+    }
 
     private TSDBConfig loadConfig(File configFile) throws IOException {
         // 读取配置文件的配置项
