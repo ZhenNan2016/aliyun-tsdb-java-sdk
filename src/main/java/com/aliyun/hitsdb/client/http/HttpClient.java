@@ -192,6 +192,15 @@ public class HttpClient {
             }
         }
 
+        if (this.headerParamsMap != null && !headerParamsMap.isEmpty()) {
+            Iterator paramItr = headerParamsMap.entrySet().iterator();
+
+            while(paramItr.hasNext()) {
+                Map.Entry<String, String> entry = (Map.Entry)paramItr.next();
+                request.setHeader(entry.getKey(), entry.getValue());
+            }
+        }
+
         if (authType != null && !authType.trim().equals("")) {
             setAuthHeader(request);
         }
@@ -323,6 +332,15 @@ public class HttpClient {
             }
         }
 
+        if (this.headerParamsMap != null && !headerParamsMap.isEmpty()) {
+            Iterator paramItr = headerParamsMap.entrySet().iterator();
+
+            while(paramItr.hasNext()) {
+                Map.Entry<String, String> entry = (Map.Entry)paramItr.next();
+                request.setHeader(entry.getKey(), entry.getValue());
+            }
+        }
+
         if (authType != null && !authType.trim().equals("")) {
             setAuthHeader(request);
         }
@@ -423,15 +441,6 @@ public class HttpClient {
         String httpFullAPI = getUrl(apiPath);
         URI uri = createURI(httpFullAPI, params);
         final HttpPost request = new HttpPost(uri);
-        if (this.headerParamsMap != null && !headerParamsMap.isEmpty()) {
-            Iterator paramItr = headerParamsMap.entrySet().iterator();
-
-            while(paramItr.hasNext()) {
-                Map.Entry<String, String> entry = (Map.Entry)paramItr.next();
-                request.setHeader(entry.getKey(), entry.getValue());
-            }
-        }
-
         return execute(request, json);
     }
 
